@@ -807,6 +807,30 @@ class CodeGenAdapter(BaseModelAdapter):
     def match(self, model_path: str):
         return "codegen" in model_path.lower()
 
+    def load_model(self, model_path: str, from_pretrained_kwargs: dict):
+        revision = from_pretrained_kwargs.get("revision", "main")
+        try:
+            tokenizer = AutoTokenizer.from_pretrained(
+                model_path,
+                use_fast=True,
+                revision=revision,
+            )
+        except TypeError:
+            tokenizer = AutoTokenizer.from_pretrained(
+                model_path,
+                use_fast=False,
+                revision=revision,
+            )
+        try:
+            model = AutoModelForCausalLM.from_pretrained(
+                model_path, low_cpu_mem_usage=True, **from_pretrained_kwargs
+            )
+        except NameError:
+            model = AutoModel.from_pretrained(
+                model_path, low_cpu_mem_usage=True, **from_pretrained_kwargs
+            )
+        return model, tokenizer
+
     def get_default_conv_template(self, model_path: str) -> Conversation:
         return get_conv_template("codegen")
 
