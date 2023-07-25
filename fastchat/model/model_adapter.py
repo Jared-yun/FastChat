@@ -801,6 +801,14 @@ class PhoenixAdapter(BaseModelAdapter):
     def get_default_conv_template(self, model_path: str) -> Conversation:
         return get_conv_template("phoenix")
 
+class CodeGenAdapter(BaseModelAdapter):
+    """The model adapter for Salesforce/codegen25-7b-multi"""
+
+    def match(self, model_path: str):
+        return "codegen" in model_path.lower()
+
+    def get_default_conv_template(self, model_path: str) -> Conversation:
+        return get_conv_template("codegen")
 
 class ChatGPTAdapter(BaseModelAdapter):
     """The model adapter for ChatGPT"""
@@ -1213,6 +1221,7 @@ register_model_adapter(BaizeAdapter)
 register_model_adapter(RwkvAdapter)
 register_model_adapter(OpenBuddyAdapter)
 register_model_adapter(PhoenixAdapter)
+register_model_adapter(CodeGenAdapter)
 register_model_adapter(BardAdapter)
 register_model_adapter(PaLM2Adapter)
 register_model_adapter(ChatGPTAdapter)

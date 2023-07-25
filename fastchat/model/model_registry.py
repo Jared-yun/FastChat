@@ -172,6 +172,12 @@ register_model_info(
     "a multilingual chat assistant fine-tuned from Bloomz to democratize ChatGPT across languages by CUHK(SZ)",
 )
 register_model_info(
+    ["codegen25-7b-multi"],
+    "Codegen25-7b-multi",
+    "https://huggingface.co/Salesforce/codegen25-7b-multi",
+    "a multilingual chat assistant fine-tuned from StartCoder to helper developer",
+)
+register_model_info(
     ["billa-7b-sft"],
     "BiLLa-7B-SFT",
     "https://huggingface.co/Neutralzz/BiLLa-7B-SFT",

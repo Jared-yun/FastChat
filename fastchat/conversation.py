@@ -26,6 +26,7 @@ class SeparatorStyle(IntEnum):
     DOLLY = auto()
     RWKV = auto()
     PHOENIX = auto()
+    CODEGEN = auto()
     ROBIN = auto()
 
 
@@ -179,6 +180,14 @@ class Conversation:
                     ret += role + ":\n"
             return ret
         elif self.sep_style == SeparatorStyle.PHOENIX:
+            ret = self.system
+            for role, message in self.messages:
+                if message:
+                    ret += role + ": " + "<s>" + message + "</s>"
+                else:
+                    ret += role + ": " + "<s>"
+            return ret
+        elif self.sep_style == SeparatorStyle.CODEGEN:
             ret = self.system
             for role, message in self.messages:
                 if message:
@@ -547,6 +556,19 @@ register_conv_template(
         messages=(),
         offset=0,
         sep_style=SeparatorStyle.PHOENIX,
+        sep="</s>",
+    )
+)
+
+# CodeGen default template
+register_conv_template(
+    Conversation(
+        name="codegen",
+        system="A chat between a developer and an AI code assistant. The assistant will provide grammatically correct, logical and reasonable answers to the developer's questions and problems.\n\n",
+        roles=("developer", "Assistant"),
+        messages=(),
+        offset=0,
+        sep_style=SeparatorStyle.CODEGEN,
         sep="</s>",
     )
 )
