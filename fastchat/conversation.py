@@ -564,7 +564,7 @@ register_conv_template(
 register_conv_template(
     Conversation(
         name="codegen",
-        system="You are a code assistant, please reply the code problem from developer",
+        system="You are a code assistant, please reply the code problem from developer.\n\n",
         roles=("developer", "assistant"),
         messages=(),
         offset=0,
