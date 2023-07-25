@@ -191,9 +191,9 @@ class Conversation:
             ret = self.system
             for role, message in self.messages:
                 if message:
-                    ret += role + ": " + "<s>" + message + "</s>"
+                    ret += role + ": " + self.sep + message + self.sep
                 else:
-                    ret += role + ": " + "<s>"
+                    ret += role + ": " + self.sep
             return ret
         elif self.sep_style == SeparatorStyle.ROBIN:
             ret = self.system + self.sep
@@ -564,12 +564,12 @@ register_conv_template(
 register_conv_template(
     Conversation(
         name="codegen",
-        system="A chat between a developer and an AI code assistant. The assistant will provide grammatically correct, logical and reasonable answers to the developer's questions and problems.\n\n",
-        roles=("developer", "Assistant"),
+        system="You are a code assistant, please reply the code problem from developer",
+        roles=("developer", "assistant"),
         messages=(),
         offset=0,
         sep_style=SeparatorStyle.CODEGEN,
-        sep="</s>",
+        sep="\n",
     )
 )
 
