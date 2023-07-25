@@ -814,6 +814,7 @@ class CodeGenAdapter(BaseModelAdapter):
                 model_path,
                 use_fast=True,
                 revision=revision,
+                trust_remote_code=True,
             )
         except TypeError:
             tokenizer = AutoTokenizer.from_pretrained(
