@@ -192,7 +192,7 @@ class Conversation:
             ret = self.system
             for role, message in self.messages:
                 if message:
-                    ret += role + ": " + self.sep + message + self.sep
+                    ret += message + self.sep
                 else:
                     ret += role + ": " + self.sep
             return ret
@@ -573,7 +573,7 @@ register_conv_template(
 register_conv_template(
     Conversation(
         name="codegen",
-        system="You are an experienced AI programming assistant.\n\n",
+        system="",
         roles=("user", "assistant"),
         messages=(),
         offset=0,
