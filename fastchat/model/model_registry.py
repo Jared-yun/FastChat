@@ -178,6 +178,12 @@ register_model_info(
     "a multilingual chat assistant fine-tuned from StartCoder to helper developer",
 )
 register_model_info(
+    ["starcoder"],
+    "Starcoder",
+    "https://huggingface.co/bigcode/starcoder",
+    "",
+)
+register_model_info(
     ["billa-7b-sft"],
     "BiLLa-7B-SFT",
     "https://huggingface.co/Neutralzz/BiLLa-7B-SFT",

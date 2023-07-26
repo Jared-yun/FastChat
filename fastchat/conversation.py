@@ -27,6 +27,7 @@ class SeparatorStyle(IntEnum):
     RWKV = auto()
     PHOENIX = auto()
     CODEGEN = auto()
+    STARTCODE = auto()
     ROBIN = auto()
 
 
@@ -192,6 +193,14 @@ class Conversation:
             for role, message in self.messages:
                 if message:
                     ret += role + ": " + self.sep + message + self.sep
+                else:
+                    ret += role + ": " + self.sep
+            return ret
+        elif self.sep_style == SeparatorStyle.STARTCODE:
+            ret = self.system
+            for role, message in self.messages:
+                if message:
+                    ret += message + self.sep
                 else:
                     ret += role + ": " + self.sep
             return ret
@@ -565,7 +574,20 @@ register_conv_template(
     Conversation(
         name="codegen",
         system="You are an experienced AI programming assistant.\n\n",
-        roles=("developer", "assistant"),
+        roles=("user", "assistant"),
+        messages=(),
+        offset=0,
+        sep_style=SeparatorStyle.CODEGEN,
+        sep="</s>",
+    )
+)
+
+# StartCode default template
+register_conv_template(
+    Conversation(
+        name="startcode",
+        system="",
+        roles=("user", "assistant"),
         messages=(),
         offset=0,
         sep_style=SeparatorStyle.CODEGEN,
